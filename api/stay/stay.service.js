@@ -8,42 +8,6 @@ async function query(filterBy = {}) {
         const criteria = _buildCriteria(filterBy)
         const collection = await dbService.getCollection('stay')
         const stays = await collection.find(criteria).toArray()
-        // var stays = await collection.aggregate([
-        //     {
-        //         $match: criteria
-        //     },
-        //     {
-        //         $lookup:
-        //         {
-        //             localField: 'byUserId',
-        //             from: 'user',
-        //             foreignField: '_id',
-        //             as: 'byUser'
-        //         }
-        //     },
-        //     {
-        //         $unwind: '$byUser'
-        //     },
-        //     {
-        //         $lookup:
-        //         {
-        //             localField: 'aboutUserId',
-        //             from: 'user',
-        //             foreignField: '_id',
-        //             as: 'aboutUser'
-        //         }
-        //     },
-        //     {
-        //         $unwind: '$aboutUser'
-        //     }
-        // ]).toArray()
-        // stays = stays.map(stay => {
-        //     stay.byUser = { _id: stay.byUser._id, fullname: stay.byUser.fullname }
-        //     stay.aboutUser = { _id: stay.aboutUser._id, fullname: stay.aboutUser.fullname }
-        //     delete stay.byUserId
-        //     delete stay.aboutUserId
-        //     return stay
-        // })
 
         return stays
     } catch (err) {

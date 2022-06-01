@@ -9,6 +9,6 @@ const router = express.Router()
 
 router.get('/', log, getStays)
 router.post('/',  log, addStay)
-router.delete('/:id',  requireAuth, deleteStay)
+router.delete('/:id' , deleteStay)
 // , requireAuth
 module.exports = router
