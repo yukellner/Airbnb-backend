@@ -32,7 +32,6 @@ const {setupSocketAPI} = require('./services/socket.service')
 
 app.use('/api/auth', authRoutes)
 app.use('/api/user', userRoutes)
-app.use('/api/review', reviewRoutes)
 app.use('/api/stay', stayRoutes)
 setupSocketAPI(http)
 
