@@ -9,25 +9,14 @@ async function login(username, password) {
 
     const user = await userService.getByUsername(username)
     if (!user) return Promise.reject('Invalid username or password')
-    // TODO: un-comment for real login
-    // const match = await bcrypt.compare(password, user.password)
-    // if (!match) return Promise.reject('Invalid username or password')
-
     delete user.password
     user._id = user._id.toString()
     return user
 }
-
-// (async ()=>{
-//     await signup('bubu', '123', 'Bubu Bi')
-//     await signup('mumu', '123', 'Mumu Maha')
-// })()
     
 
 async function signup({username, password, fullname, imgUrl}) {
     const saltRounds = 10
-
-    logger.debug(`auth.service - signup with username: ${username}, fullname: ${fullname}`)
     if (!username || !password || !fullname) return Promise.reject('Missing required signup information')
 
     const userExist = await userService.getByUsername(username)
@@ -44,6 +33,7 @@ function getLoginToken(user) {
 
 function validateToken(loginToken) {
     try {
+        console.log('validate');
         const json = cryptr.decrypt(loginToken)
         const loggedinUser = JSON.parse(json)
         return loggedinUser
