@@ -16,15 +16,13 @@ async function login(req, res) {
 
 async function signup(req, res) {
     try {
-        const credentials = req.body
-        const account = await authService.signup(credentials)
-        logger.debug(`auth.route - new account created: ` + JSON.stringify(account))
-        const user = await authService.login(credentials.username, credentials.password)
-        const loginToken = authService.getLoginToken(user)
-        res.cookie('loginToken', loginToken)
+        const userData = req.body
+        const account = await authService.signup(userData)
+        // const user = await authService.login(credentials.username, credentials.password)
+        // const loginToken = authService.getLoginToken(user)
+        // res.cookie('loginToken', loginToken)
         res.json(user)
     } catch (err) {
-        logger.error('Failed to signup ' + err)
         res.status(500).send({ err: 'Failed to signup' })
     }
 }

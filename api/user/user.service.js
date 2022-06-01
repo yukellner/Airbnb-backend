@@ -94,12 +94,13 @@ async function add(user) {
         const userToAdd = {
             username: user.username,
             password: user.password,
-            fullname: user.fullname,
+            fullName: user.fullName,
             imgUrl: user.imgUrl,
-            score: 100
+            email: user.email
         }
         const collection = await dbService.getCollection('user')
         await collection.insertOne(userToAdd)
+        userToAdd.password=''
         return userToAdd
     } catch (err) {
         logger.error('cannot insert user', err)
