@@ -21,7 +21,7 @@ async function signup(req, res) {
         // const user = await authService.login(credentials.username, credentials.password)
         // const loginToken = authService.getLoginToken(user)
         // res.cookie('loginToken', loginToken)
-        res.json(user)
+        res.json(account)
     } catch (err) {
         res.status(500).send({ err: 'Failed to signup' })
     }

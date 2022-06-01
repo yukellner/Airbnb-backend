@@ -23,7 +23,6 @@ const authRoutes = require('./api/auth/auth.routes')
 const userRoutes = require('./api/user/user.routes')
 // const userRoutes = require('./api/stay.routes')
 const stayRoutes = require('./api/stay/stay.routes')
-const reviewRoutes = require('./api/review/review.routes')
 const {setupSocketAPI} = require('./services/socket.service')
 
 // routes
