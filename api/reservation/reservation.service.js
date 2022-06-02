@@ -6,20 +6,35 @@ const asyncLocalStorage = require('../../services/als.service')
 async function query(filterBy = {}) {
     try {
         const criteria = _buildCriteria(filterBy)
-        console.log('criteria',criteria)
-        const collection = await dbService.getCollection('reservation')
-        console.log('collection',collection)
-        console.log('collection',collection)
-        
+        const collection = await dbService.getCollection('reservation')    
         const reservations = await collection.find(criteria).toArray()
-        console.log('reservations',reservations)
-
         return reservations
     } catch (err) {
         logger.error('cannot find reservations', err)
         throw err
     }
+}
 
+function _buildCriteria(filterBy) {
+    const criteria = {}
+    if (filterBy.hostId) {
+        criteria.hostId = ObjectId(filterBy.hostId)
+    }
+    if(filterBy.userId) {
+        criteria.userId = ObjectId(filterBy.userId)
+    }
+    return criteria
+}
+
+async function add(reservation) {
+    try {
+        const collection = await dbService.getCollection('reservation')
+        await collection.insertOne(reservation)
+        return reservation
+    } catch (err) {
+        logger.error('cannot insert reservation', err)
+        throw err
+    }
 }
 
 async function remove(reservationId) {
@@ -39,35 +54,6 @@ async function remove(reservationId) {
 }
 
 
-async function add(reservation) {
-    try {
-        const collection = await dbService.getCollection('reservation')
-        await collection.insertOne(reservation)
-        return reservation
-    } catch (err) {
-        logger.error('cannot insert reservation', err)
-        throw err
-    }
-}
-
-function _buildCriteria(filterBy) {
-    const criteria = {}
-    if (filterBy.location) {
-        const locationCriteria = { $regex: filterBy.location, $options: 'i' }
-        criteria.$or = [
-            {
-                'address.country': locationCriteria
-            },
-            {
-                'address.city': locationCriteria
-            },
-            {
-                'name': locationCriteria
-            }
-        ]
-    }
-    return criteria
-}
 
 module.exports = {
     query,
