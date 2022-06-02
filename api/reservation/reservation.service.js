@@ -5,9 +5,7 @@ const asyncLocalStorage = require('../../services/als.service')
 
 async function query(filterBy = {}) {
     try {
-        console.log(filterBy)
         const criteria = _buildCriteria(filterBy)
-        console.log(criteria)
         const collection = await dbService.getCollection('reservation')    
         const reservations = await collection.find(criteria).toArray()
         return reservations
