@@ -7,7 +7,7 @@ const reservationservice = require('./reservation.service')
 async function getReservations(req, res) {
     try {
         const reservations = await reservationservice.query(req.query)
-        return res.json(reservations)   
+        return res.send(reservations)   
     } catch (err) {
         res.status(500).send({ err: 'Failed to get reservations' })
     }
