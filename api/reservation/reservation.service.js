@@ -40,18 +40,10 @@ async function remove(reservationId) {
 
 
 async function add(reservation) {
-    console.log('reservation',reservation)
     try {
-        const reservationToAdd = {
-            // byUserId: ObjectId(reservation.byUserId),
-            // aboutUserId: ObjectId(reservation.aboutUserId),
-            // txt: reservation.txt
-            reservation
-            // name: reservation.name
-        }
         const collection = await dbService.getCollection('reservation')
-        await collection.insertOne(reservationToAdd)
-        return reservationToAdd
+        await collection.insertOne(reservation)
+        return reservation
     } catch (err) {
         logger.error('cannot insert reservation', err)
         throw err

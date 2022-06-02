@@ -36,33 +36,8 @@ async function addReservation(req, res) {
  
     try {
         var reservation = req.body
-        // reservation.byUserId = loggedinUser._id
         reservation = await reservationservice.add(reservation)
-        
-        // prepare the updated reservation for sending out
-        // reservation.aboutUser = await userService.getById(reservation.aboutUserId)
-        
-        // Give the user credit for adding a reservation
-        // var user = await userService.getById(reservation.byUserId)
-        // user.score += 10
-        // loggedinUser.score += 10
-
-        // loggedinUser = await userService.update(loggedinUser)
-        // reservation.byUser = loggedinUser
-
-        // User info is saved also in the login-token, update it
-        // const loginToken = authService.getLoginToken(loggedinUser)
-        // res.cookie('loginToken', loginToken)
-
-
-        // socketService.broadcast({type: 'reservation-added', data: reservation, userId: reservation.byUserId})
-        // socketService.emitToUser({type: 'reservation-about-you', data: reservation, userId: reservation.aboutUserId})
-        
-        // const fullUser = await userService.getById(loggedinUser._id)
-        // socketService.emitTo({type: 'user-updated', data: fullUser, label: fullUser._id})
-
         res.send(reservation)
-
     } catch (err) {
         console.log(err)
         logger.error('Failed to add reservation', err)
