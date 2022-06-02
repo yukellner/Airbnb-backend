@@ -17,19 +17,18 @@ async function login(req, res) {
 async function signup(req, res) {
     try {
         const userData = req.body
+        const password=userData.password
         const account = await authService.signup(userData)
-
-        // const user = await login(userData.username, userData.password,true)
-        // const loginToken = authService.getLoginToken(user)
-        // res.cookie('loginToken', loginToken)
-
+        const user = await authService.login(userData.username, password)
+        const loginToken = authService.getLoginToken(user)
+        res.cookie('loginToken', loginToken)
         res.json(account)
     } catch (err) {
         res.status(500).send({ err: 'Failed to signup' })
     }
 }
 
-async function logout(req, res){
+async function logout(req, res) {
     try {
         res.clearCookie('loginToken')
         res.send({ msg: 'Logged out successfully' })
