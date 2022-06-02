@@ -5,7 +5,9 @@ const asyncLocalStorage = require('../../services/als.service')
 
 async function query(filterBy = {}) {
     try {
+        console.log(filterBy)
         const criteria = _buildCriteria(filterBy)
+        console.log(criteria)
         const collection = await dbService.getCollection('reservation')    
         const reservations = await collection.find(criteria).toArray()
         return reservations
@@ -18,12 +20,11 @@ async function query(filterBy = {}) {
 function _buildCriteria(filterBy) {
     const criteria = {}
     if (filterBy.hostId) {
-        criteria.hostId = ObjectId(filterBy.hostId)
+        criteria.hostId = filterBy.hostId
     }
     if(filterBy.userId) {
-        criteria.userId = ObjectId(filterBy.userId)
+        criteria.userId = filterBy.userId
     }
-    console.log(criteria)
     return criteria
 }
 
