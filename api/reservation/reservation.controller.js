@@ -6,9 +6,7 @@ const reservationservice = require('./reservation.service')
 
 async function getReservations(req, res) {
     try {
-        console.log('qq',req.query);
         const reservations = await reservationservice.query(req.query)
-        // const reservations = await reservationservice.query({hostId:'622f3402e36c59e6164fac46'})
         return res.send(reservations)   
     } catch (err) {
         res.status(500).send({ err: 'Failed to get reservations' })

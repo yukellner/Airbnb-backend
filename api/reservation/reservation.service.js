@@ -23,6 +23,7 @@ function _buildCriteria(filterBy) {
     if(filterBy.userId) {
         criteria.userId = ObjectId(filterBy.userId)
     }
+    console.log(criteria)
     return criteria
 }
 
