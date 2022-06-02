@@ -13,8 +13,18 @@ async function query(filterBy = {}) {
         logger.error('cannot find stays', err)
         throw err
     }
-
 }
+
+async function getById(stayId) {
+    try {
+      const collection = await dbService.getCollection('stay')
+      const stay = await collection.findOne({ _id: stayId })
+      return stay
+    } catch (err) {
+      logger.error(`while finding stay ${stayId}`, err)
+      throw err
+    }
+  }
 
 async function remove(stayId) {
     try {
@@ -73,6 +83,7 @@ function _buildCriteria(filterBy) {
 
 module.exports = {
     query,
+    getById,
     remove,
     add
 }
