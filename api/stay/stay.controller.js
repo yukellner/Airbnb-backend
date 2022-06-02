@@ -14,6 +14,18 @@ async function getStays(req, res) {
     }
 }
 
+async function getStayById(req, res) {
+    try {
+      const stayId = req.params.id
+      console.log(stayId)
+      const stay = await stayservice.getById(stayId)
+      res.send(stay)
+    } catch (err) {
+      logger.error('Failed to get toy', err)
+      res.status(500).send({ err: 'Failed to get toy' })
+    }
+  }
+
 async function deleteStay(req, res) {
     try {
         const deletedCount = await stayservice.remove(req.params.id)
@@ -72,6 +84,7 @@ async function addStay(req, res) {
 
 module.exports = {
     getStays,
+    getStayById,
     deleteStay,
     addStay
 }
