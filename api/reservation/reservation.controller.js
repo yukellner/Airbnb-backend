@@ -14,8 +14,10 @@ async function getReservations(req, res) {
 }
 
 async function deleteReservation(req, res) {
+    console.log('loginToken',req.cookies.loginToken)
+    const loggedInUseer = authService.validateToken(req.cookies.loginToken)
     try {
-        const deletedCount = await reservationservice.remove(req.params.id)
+        const deletedCount = await reservationservice.remove(req.body, loggedInUseer)
         if (deletedCount === 1) {
             res.send({ msg: 'Deleted successfully' })
         } else {
