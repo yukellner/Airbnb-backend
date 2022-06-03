@@ -6,7 +6,7 @@ const asyncLocalStorage = require('../../services/als.service')
 async function query(filterBy = {}) {
     try {
         const criteria = _buildCriteria(filterBy)
-        const collection = await dbService.getCollection('reservation')    
+        const collection = await dbService.getCollection('reservation')
         const reservations = await collection.find(criteria).toArray()
         return reservations
     } catch (err) {
@@ -20,9 +20,10 @@ function _buildCriteria(filterBy) {
     if (filterBy.hostId) {
         criteria.hostId = filterBy.hostId
     }
-    if(filterBy.userId) {
+    if (filterBy.userId) {
         criteria.userId = filterBy.userId
     }
+
     return criteria
 }
 
@@ -37,21 +38,34 @@ async function add(reservation) {
     }
 }
 
-async function remove(reservationId) {
+async function remove(reservation,loggedinUser) {
     try {
-        const store = asyncLocalStorage.getStore()
-        const { loggedinUser } = store
+        // const store = asyncLocalStorage.getStore()
+        // const { loggedinUser } = store
+
+        console.log('loggedinUser._id', loggedinUser._id)
+        console.log('reservation.userId', reservation.userId)
         const collection = await dbService.getCollection('reservation')
-        // remove only if user is owner/admin
-        const criteria = { _id: ObjectId(reservationId) }
-        if (!loggedinUser.isAdmin) criteria.byUserId = ObjectId(loggedinUser._id)
+        const criteria = {}
+        // remove only if user is host/guest
+        if (reservation.userId === loggedinUser._id || reservation.hostId === loggedinUser._id) {
+            console.log('im here')
+            criteria._id = ObjectId(reservation._id) 
+        }
+
+        
+        // const criteria = _buildCriteriaForRemoveReservation(reservationId, loggedinUser)
         const { deletedCount } = await collection.deleteOne(criteria)
         return deletedCount
     } catch (err) {
-        logger.error(`cannot remove reservation ${reservationId}`, err)
+        logger.error(`cannot remove reservation ${reservation._id}`, err)
         throw err
     }
 }
+
+
+
+
 
 
 
