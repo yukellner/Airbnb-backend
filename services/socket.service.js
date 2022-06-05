@@ -53,6 +53,7 @@ function emitTo({ type, data, label }) {
 
 async function emitToUser({ type, data, userId }) {
     const socket = await _getUserSocket(userId)
+    console.log('socket inside emit user', socket)
 
     if (socket) {
         logger.info(`Emiting event: ${type} to user: ${userId} socket [id: ${socket.id}]`)
@@ -81,17 +82,23 @@ async function broadcast({ type, data, room = null, userId }) {
         logger.info(`Emit to all`)
         gIo.emit(type, data)
     }
+    
 }
 
 async function _getUserSocket(userId) {
     const sockets = await _getAllSockets()
+    console.log('sockets', sockets)
+    console.log('userId------', userId)
     const socket = sockets.find(s => s.userId === userId)
+    console.log('socketi', socket)
     return socket
 }
 async function _getAllSockets() {
     // return all Socket instances
     const sockets = await gIo.fetchSockets()
+    
     return sockets
+
 }
 
 async function _printSockets() {
