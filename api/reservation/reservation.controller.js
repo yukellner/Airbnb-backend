@@ -14,7 +14,7 @@ async function getReservations(req, res) {
 }
 
 async function deleteReservation(req, res) {
-    console.log('loginToken',req.cookies.loginToken)
+   
     const loggedInUseer = authService.validateToken(req.cookies.loginToken)
     try {
         const deletedCount = await reservationservice.remove(req.body, loggedInUseer)
@@ -31,10 +31,6 @@ async function deleteReservation(req, res) {
 
 
 async function addReservation(req, res) {
-
-    // var loggedinUser = authService.validateToken(req.cookies.loginToken)
-    // console.log('req',req.body)
- 
     try {
         var reservation = req.body
         reservation = await reservationservice.add(reservation)
@@ -46,8 +42,11 @@ async function addReservation(req, res) {
     }
 }
 
+
+
 module.exports = {
     getReservations,
     deleteReservation,
     addReservation
+    
 }
