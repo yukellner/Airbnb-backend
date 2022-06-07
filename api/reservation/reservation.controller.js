@@ -36,22 +36,9 @@ async function addReservation(req, res) {
         var loggedinUser = authService.validateToken(req.cookies.loginToken)
         var reservation = req.body
         reservation = await reservationservice.add(reservation)
-
-        // loggedinUser = await userService.update(loggedinUser)
-        // review.byUser = loggedinUser
-
-        // User info is saved also in the login-token, update it
         const loginToken = authService.getLoginToken(loggedinUser)
         res.cookie('loginToken', loginToken)
-
-        // socketService.broadcast({type: 'rereservation-added', data: 'you have an order', userId: loggedinUser})
-        socketService.emitToUser({type: 'rereservation-added', data: 'you have an order', userId: reservation.hostId})
-    
-        // const fullUser = await userService.getById(loggedinUser._id)
-        // socketService.emitTo({type: 'user-updated', data: fullUser, label: fullUser._id})
-
-
-
+        // socketService.emitToUser({type: 'rereservation-added', data: 'you have an order', userId: reservation.hostId})
         res.send(reservation)
     } catch (err) {
         console.log(err)
