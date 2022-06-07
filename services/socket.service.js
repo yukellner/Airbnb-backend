@@ -23,7 +23,7 @@ function setupSocketAPI(http) {
             delete socket.userId
         })
         socket.on('new-reservation', ({hostId,guestName}) => {
-            emitToUser({type: 'rereservation-added', data: {guest},userId: hostId})
+            emitToUser({type: 'rereservation-added', data: {guestName},userId: hostId})
         })
 
         
