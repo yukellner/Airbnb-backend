@@ -54,6 +54,8 @@ async function remove(reservation,loggedinUser) {
         }
 
         
+
+        
         // const criteria = _buildCriteriaForRemoveReservation(reservationId, loggedinUser)
         const { deletedCount } = await collection.deleteOne(criteria)
         return deletedCount
