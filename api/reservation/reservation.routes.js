@@ -6,6 +6,8 @@ const router = express.Router()
 
 router.get('/', getReservations)
 router.post('/',  log, addReservation)
-router.delete('/' ,requireAuth, deleteReservation)
+router.delete('/' , deleteReservation)
 module.exports = router
+
+// requireAuth
 

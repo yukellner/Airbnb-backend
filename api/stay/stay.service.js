@@ -4,10 +4,12 @@ const ObjectId = require('mongodb').ObjectId
 const asyncLocalStorage = require('../../services/als.service')
 
 async function query(filterBy = {}) {
+   
     try {
         const criteria = _buildCriteria(filterBy)
         const collection = await dbService.getCollection('stay')
         const stays = await collection.find(criteria).toArray()
+      
         return stays
     } catch (err) {
         logger.error('cannot find stays', err)
@@ -24,6 +26,7 @@ async function getById(stayId) {
       logger.error(`while finding stay ${stayId}`, err)
       throw err
     }
+
   }
 
 async function remove(stayId) {
@@ -44,18 +47,11 @@ async function remove(stayId) {
 
 
 async function add(stay) {
-    console.log('stay',stay)
+   
     try {
-        const stayToAdd = {
-            // byUserId: ObjectId(stay.byUserId),
-            // aboutUserId: ObjectId(stay.aboutUserId),
-            // txt: stay.txt
-            stay
-            // name: stay.name
-        }
         const collection = await dbService.getCollection('stay')
-        await collection.insertOne(stayToAdd)
-        return stayToAdd
+        await collection.insertOne(stay)
+        return stay
     } catch (err) {
         logger.error('cannot insert stay', err)
         throw err
@@ -78,6 +74,12 @@ function _buildCriteria(filterBy) {
             }
         ]
     }
+    // if (filterBy.hostId){
+    //     console.log('im inside filter.hostud')
+    //     const hots = (filterBy.hostId._id)
+    //     criteria.host = hots
+    //     console.log('criteria',criteria)
+    // }
     return criteria
 }
 

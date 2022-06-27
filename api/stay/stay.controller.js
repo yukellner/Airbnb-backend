@@ -43,6 +43,8 @@ async function deleteStay(req, res) {
 
 async function addStay(req, res) {
 
+    console.log('im inside addstay in beckend', req)
+
     // var loggedinUser = authService.validateToken(req.cookies.loginToken)
     // console.log('req',req.body)
  

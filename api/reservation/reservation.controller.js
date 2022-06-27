@@ -14,8 +14,8 @@ async function getReservations(req, res) {
 }
 
 async function deleteReservation(req, res) {
-    console.log('loginToken',req.cookies.loginToken)
-    const loggedInUseer = authService.validateToken(req.cookies.loginToken)
+   
+    var loggedInUseer = authService.validateToken(req.cookies.loginToken)
     try {
         const deletedCount = await reservationservice.remove(req.body, loggedInUseer)
         if (deletedCount === 1) {
@@ -31,13 +31,14 @@ async function deleteReservation(req, res) {
 
 
 async function addReservation(req, res) {
-
-    // var loggedinUser = authService.validateToken(req.cookies.loginToken)
-    // console.log('req',req.body)
- 
+    
     try {
+        var loggedinUser = authService.validateToken(req.cookies.loginToken)
         var reservation = req.body
         reservation = await reservationservice.add(reservation)
+        const loginToken = authService.getLoginToken(loggedinUser)
+        res.cookie('loginToken', loginToken)
+        // socketService.emitToUser({type: 'rereservation-added', data: 'you have an order', userId: reservation.hostId})
         res.send(reservation)
     } catch (err) {
         console.log(err)
@@ -46,8 +47,11 @@ async function addReservation(req, res) {
     }
 }
 
+
+
 module.exports = {
     getReservations,
     deleteReservation,
     addReservation
+    
 }
