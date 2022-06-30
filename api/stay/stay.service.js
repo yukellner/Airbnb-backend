@@ -9,7 +9,6 @@ async function query(filterBy = {}) {
         const criteria = _buildCriteria(filterBy)
         const collection = await dbService.getCollection('stay')
         const stays = await collection.find(criteria).toArray()
-      
         return stays
     } catch (err) {
         logger.error('cannot find stays', err)
@@ -34,7 +33,6 @@ async function remove(stayId) {
         const store = asyncLocalStorage.getStore()
         const { loggedinUser } = store
         const collection = await dbService.getCollection('stay')
-        // remove only if user is owner/admin
         const criteria = { _id: ObjectId(stayId) }
         if (!loggedinUser.isAdmin) criteria.byUserId = ObjectId(loggedinUser._id)
         const { deletedCount } = await collection.deleteOne(criteria)
@@ -74,12 +72,6 @@ function _buildCriteria(filterBy) {
             }
         ]
     }
-    // if (filterBy.hostId){
-    //     console.log('im inside filter.hostud')
-    //     const hots = (filterBy.hostId._id)
-    //     criteria.host = hots
-    //     console.log('criteria',criteria)
-    // }
     return criteria
 }
 

@@ -1,7 +1,4 @@
 const logger = require('../../services/logger.service')
-const userService = require('../user/user.service')
-const authService = require('../auth/auth.service')
-const socketService = require('../../services/socket.service')
 const stayservice = require('./stay.service')
 
 async function getStays(req, res) {
