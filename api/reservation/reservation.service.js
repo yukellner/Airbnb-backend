@@ -43,7 +43,6 @@ async function remove(reservation, loggedinUser) {
         const collection = await dbService.getCollection('reservation')
         const criteria = { _id: '111' }
         if (reservation.userId === loggedinUser._id || reservation.hostId === loggedinUser._id) {
-            console.log('im here')
             criteria._id = ObjectId(reservation._id)
         }
         const { deletedCount } = await collection.deleteOne(criteria)
