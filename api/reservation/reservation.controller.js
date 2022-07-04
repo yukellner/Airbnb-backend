@@ -1,7 +1,5 @@
 const logger = require('../../services/logger.service')
-const userService = require('../user/user.service')
 const authService = require('../auth/auth.service')
-const socketService = require('../../services/socket.service')
 const reservationservice = require('./reservation.service')
 
 async function getReservations(req, res) {
@@ -38,7 +36,6 @@ async function addReservation(req, res) {
         reservation = await reservationservice.add(reservation)
         const loginToken = authService.getLoginToken(loggedinUser)
         res.cookie('loginToken', loginToken)
-        // socketService.emitToUser({type: 'rereservation-added', data: 'you have an order', userId: reservation.hostId})
         res.send(reservation)
     } catch (err) {
         console.log(err)
@@ -46,8 +43,6 @@ async function addReservation(req, res) {
         res.status(500).send({ err: 'Failed to add reservation' })
     }
 }
-
-
 
 module.exports = {
     getReservations,
