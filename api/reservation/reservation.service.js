@@ -1,12 +1,9 @@
 const dbService = require('../../services/db.service')
 const logger = require('../../services/logger.service')
 const ObjectId = require('mongodb').ObjectId
-const asyncLocalStorage = require('../../services/als.service')
-const { error } = require('../../services/logger.service')
 
 async function query(filterBy = {}) {
     try {
-        console.log('im inside query')
         const criteria = _buildCriteria(filterBy)
         const collection = await dbService.getCollection('reservation')
         const reservations = await collection.find(criteria).toArray()
@@ -42,13 +39,9 @@ async function add(reservation) {
 
 async function remove(reservation, loggedinUser) {
     try {
-        console.log('loggedinUser._id', loggedinUser._id)
-        console.log('reservation.userId', reservation.userId)
         const collection = await dbService.getCollection('reservation')
         const criteria = { _id: '111' }
-        // remove only if user is host/guest
         if (reservation.userId === loggedinUser._id || reservation.hostId === loggedinUser._id) {
-            console.log('im here')
             criteria._id = ObjectId(reservation._id)
         }
         const { deletedCount } = await collection.deleteOne(criteria)
@@ -65,7 +58,4 @@ module.exports = {
     remove,
     add
 }
-
-
-// "62989b0dd6fa28283453a04d"  mongo
 
