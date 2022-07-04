@@ -1,6 +1,6 @@
 const Cryptr = require('cryptr')
 const bcrypt = require('bcrypt')
-const userService = require('../user/user.service')
+const userService = require('./user.service')
 const logger = require('../../services/logger.service')
 const cryptr = new Cryptr(process.env.SECRET1 || 'Secret-Puk-1234')
 
@@ -8,7 +8,7 @@ async function login(username, password) {
     let match
     logger.debug(`auth.service - login with username: ${username}`)
     const user = await userService.getByUsername(username)
-    if (!user) return Promise.reject('Invalid username or password') 
+    if (!user) return Promise.reject('Invalid username or password')
     match = await bcrypt.compare(password, user.password)
     if (!match) return Promise.reject('Invalid username or password')
     delete user.password
@@ -18,15 +18,13 @@ async function login(username, password) {
 
 async function signup(user) {
     const saltRounds = 10
-    // const userExist = await userService.getByUsername(username)
-    // if (userExist) return Promise.reject('Username already taken')
     user.password = await bcrypt.hash(user.password, saltRounds)
     return userService.add(user)
 }
 
 
 function getLoginToken(user) {
-    return cryptr.encrypt(JSON.stringify(user))    
+    return cryptr.encrypt(JSON.stringify(user))
 }
 
 function validateToken(loginToken) {
@@ -35,7 +33,7 @@ function validateToken(loginToken) {
         const loggedinUser = JSON.parse(json)
         return loggedinUser
 
-    } catch(err) {
+    } catch (err) {
         console.log('Invalid login token')
     }
     return null
