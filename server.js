@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'production') {
 const authRoutes = require('./api/auth/auth.routes')
 const stayRoutes = require('./api/stay/stay.routes')
 const reservationRoutes = require('./api/reservation/reservation.routes')
-const {setupSocketAPI} = require('./services/socket.service')
+const { setupSocketAPI } = require('./services/socket.service')
 
 app.use('/api/auth', authRoutes)
 app.use('/api/stay', stayRoutes)
