@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/static/css/main.dc15e3c6.css",
+    "main.js": "/static/js/main.9367bdd0.js",
+    "static/media/http___cdn.cnn.com_cnnnext_dam_assets_181010131059-australia-best-beaches-cossies-beach-cocos3.jpg": "/static/media/http___cdn.cnn.com_cnnnext_dam_assets_181010131059-australia-best-beaches-cossies-beach-cocos3.05d1bd309e4348670e86.jpg",
+    "static/media/brown-regular.otf": "/static/media/brown-regular.6e6b7bdfc54562a5073d.otf",
+    "static/media/AirbnbCerealBook.woff": "/static/media/AirbnbCerealBook.d42c6a4d011ab55732b2.woff",
+    "static/media/AirbnbCerealMedium.woff": "/static/media/AirbnbCerealMedium.8a9ee95760624b68a412.woff",
+    "static/media/AirbnbCerealBold.woff": "/static/media/AirbnbCerealBold.f286ae85c8aca0aeaa50.woff",
+    "static/media/AirbnbCerealLight.woff": "/static/media/AirbnbCerealLight.b23120006d8eb043d64a.woff",
+    "static/media/logo1.png": "/static/media/logo1.cfa98d252364668f78cf.png",
+    "static/media/AirbnbCerealExtraBold.woff": "/static/media/AirbnbCerealExtraBold.1e9cf6ed4a060b4ff232.woff",
+    "static/media/AirbnbCerealBlack.woff": "/static/media/AirbnbCerealBlack.1b848ef9b3436723dff6.woff",
+    "static/media/logo-white.png": "/static/media/logo-white.70dd4aca7491db4a6dcf.png",
+    "static/media/hand.svg": "/static/media/hand.7db2c8da4bde0d31c4d8a7d2e2782c53.svg",
+    "index.html": "/index.html",
+    "main.dc15e3c6.css.map": "/static/css/main.dc15e3c6.css.map",
+    "main.9367bdd0.js.map": "/static/js/main.9367bdd0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.dc15e3c6.css",
+    "static/js/main.9367bdd0.js"
+  ]
+}
